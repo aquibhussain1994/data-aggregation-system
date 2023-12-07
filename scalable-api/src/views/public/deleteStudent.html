@@ -1,0 +1,45 @@
+<!-- deleteStudent.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Student</title>
+</head>
+<body>
+
+  <h1>Delete Student</h1>
+
+  <form id="deleteStudentForm">
+    <label for="studentId">Enter Student ID:</label>
+    <input type="text" id="studentId" name="studentId" required>
+
+    <button type="button" onclick="deleteStudent()">Delete Student</button>
+  </form>
+
+  <script>
+    async function deleteStudent() {
+      const studentId = document.getElementById('studentId').value;
+
+      try {
+        const response = await fetch(`http://localhost:3000/api/deleteStudent/${studentId}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          alert('Student deleted successfully!');
+        } else {
+          alert('Error deleting student. Please check the ID and try again.');
+        }
+      } catch (error) {
+        console.error('Error deleting student:', error.message);
+        alert('Error deleting student. Please try again.');
+      }
+    }
+  </script>
+
+</body>
+</html>
+
+
+

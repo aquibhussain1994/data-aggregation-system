@@ -1,0 +1,44 @@
+<!-- getStudent.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Student</title>
+</head>
+<body>
+
+  <h1>Get Student Details</h1>
+
+  <form id="getStudentForm">
+    <label for="studentId">Enter Student ID:</label>
+    <input type="text" id="studentId" name="studentId" required>
+
+    <button type="button" onclick="getStudent()">Get Student</button>
+  </form>
+
+  <div id="studentDetails"></div>
+
+  <script>
+    async function getStudent() {
+      const studentId = document.getElementById('studentId').value;
+
+      try {
+        const response = await fetch(`http://localhost:3000/api/getStudent/${studentId}`);
+
+        if (response.ok) {
+          const student = await response.json();
+          const studentDetails = document.getElementById('studentDetails');
+          studentDetails.innerHTML = `<p>Name: ${student.name}</p><p>Age: ${student.age}</p><p>Grade: ${student.grade}</p>`;
+        } else {
+          alert('Error retrieving student. Please check the ID and try again.');
+        }
+      } catch (error) {
+        console.error('Error retrieving student:', error.message);
+        alert('Error retrieving student. Please try again.');
+      }
+    }
+  </script>
+
+</body>
+</html>
